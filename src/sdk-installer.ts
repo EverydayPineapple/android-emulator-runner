@@ -37,11 +37,11 @@ export async function installAndroidSdk(apiLevel: number, target: string, arch: 
     }
   }
 
-  // self-hosted
-  const selfHosted = core.getInput('self-hosted');
+  // fresh installation
+  const freshInstall = core.getInput('fresh-sdk-installation');
   // It is not required to configure permissions on self-hosted and macos
   // environment.
-  if (!isOnMac && !selfHosted) {
+  if (!isOnMac && !freshInstall) {
     await exec.exec(`sh -c \\"sudo chown $USER:$USER ${process.env.ANDROID_HOME} -R`);
   }
 
@@ -133,15 +133,6 @@ async function installBaseSdk() {
 async function acceptLicenses() {
   const androidHome = process.env.ANDROID_HOME;
   console.log(`Accepting Android SDK licenses on ${androidHome}`);
-
-  // Check if licenses has being accepted.
-  const acceptLicense = core.getInput('accept-android-sdk-license');
-  if (!acceptLicense) {
-    core.setFailed(
-      "You can't use this in self-hosted environment unless you accept the Android SDK licenses. \nPlease read the license https://developer.android.com/studio/terms and accept the license to proceed."
-    );
-    return false;
-  }
 
   await exec.exec(`mkdir -p ${process.env.ANDROID_SDK_HOME}`);
   await exec.exec(`touch ${process.env.ANDROID_SDK_HOME}/repositories.cfg`);

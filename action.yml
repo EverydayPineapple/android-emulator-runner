@@ -2,7 +2,7 @@ name: 'Android Emulator Runner'
 description: 'Installs, configures and starts an Android Emulator directly on macOS virtual machines.'
 author: 'Reactive Circus'
 branding:
-  icon: 'smartphone'  
+  icon: 'smartphone'
   color: 'green'
 inputs:
   api-level:
@@ -36,6 +36,9 @@ inputs:
   script:
     description: 'custom script to run - e.g. `./gradlew connectedCheck`'
     required: true
+  fresh-sdk-installation:
+    description: 'This option will ignore your current "ANDROID_HOME" installation and install do a fresh install of the Android SDK'
+    default: 'false'
 runs:
   using: 'node12'
   main: 'lib/main.js'

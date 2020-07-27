@@ -66,6 +66,7 @@ jobs:
         emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
         disable-animations: true
         working-directory: ./test-fixture/
+        fresh-sdk-installation: true
         script: |
           echo $GITHUB_REPOSITORY
           adb devices
